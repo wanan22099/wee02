@@ -17,7 +17,7 @@ async def start(update: Update, context: CallbackContext) -> None:
     try:
         keyboard = [
             [
-                InlineKeyboardButton("🎮 Open Mini App", web_app=WebAppInfo(url="https://https://wealth1254.cc/#/register?ref=973095")),
+                InlineKeyboardButton("🎮 Open Mini App", web_app=WebAppInfo(url="https://wealth1254.cc/#/")),
                 InlineKeyboardButton("👥 Join Group", url="https://t.me/+eWZl9--S-cUwZDM0")
             ],
             [
