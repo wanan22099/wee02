@@ -6,6 +6,7 @@ from telegram.ext import Application, CommandHandler, MessageHandler, filters, C
 from telegram.error import Conflict
 from dotenv import load_dotenv
 
+# 初始化配置
 load_dotenv()
 TOKEN = os.getenv("BOT_TOKEN")
 
@@ -26,7 +27,7 @@ BUTTONS = {
 }
 
 def create_keyboard(buttons):
-    """通用键盘生成器（自动兼容版本）"""
+    """通用键盘生成器（兼容新旧版本）"""
     try:
         return ReplyKeyboardMarkup(
             buttons,
@@ -37,8 +38,20 @@ def create_keyboard(buttons):
     except TypeError:
         return ReplyKeyboardMarkup(buttons, resize_keyboard=True)
 
+async def start(update: Update, context: CallbackContext):
+    """处理 /start 命令"""
+    await update.message.reply_text(
+        "请选择功能：",
+        reply_markup=create_keyboard([
+            ["🎮 开始游戏", "👥 加入群组"],
+            ["📢 加入频道", "📞 联系客服"]
+        ])
+    )
+
 async def handle_message(update: Update, context: CallbackContext):
+    """处理所有消息"""
     text = update.message.text
+    
     if text == "🔙 返回主菜单":
         await start(update, context)
         return
@@ -61,14 +74,16 @@ async def handle_message(update: Update, context: CallbackContext):
 
 def main():
     app = Application.builder().token(TOKEN).build()
+    
+    # 注册处理器（确保start函数已定义）
     app.add_handler(CommandHandler("start", start))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
     
     try:
-        logger.info("启动Bot...")
+        logger.info("Bot启动成功")
         app.run_polling()
     except Conflict:
-        logger.warning("检测到冲突，尝试恢复...")
+        logger.error("检测到冲突，正在恢复...")
         os.execl(sys.executable, sys.executable, *sys.argv)
 
 if __name__ == "__main__":
