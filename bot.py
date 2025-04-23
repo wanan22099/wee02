@@ -17,10 +17,10 @@ logger = logging.getLogger(__name__)
 
 # 按钮配置
 BUTTONS = {
-    "🎮 开始游戏": {"type": "web_app", "data": "https://wealth1254.cc/#/"},  # 内置小程序
-    "👥 加入群组": {"type": "url", "data": "https://t.me/+eWZl9--S-cUwZDM0"},       # 群组
-    "📢 加入频道": {"type": "url", "data": "https://t.me/+eWZl9--S-cUwZDM0"},    # 频道
-    "📞 联系客服": {"type": "url", "data": "https://t.me/WedlthCode"}     # 联系人
+    "🎮 开始游戏": {"type": "web_app", "data": "https://wealth1254.cc/#/"},
+    "👥 加入群组": {"type": "url", "data": "https://t.me/+eWZl9--S-cUwZDM0"},  # 替换为真实群组链接
+    "📢 加入频道": {"type": "url", "data": "https://t.me/+eWZl9--S-cUwZDM0"},  # 替换为真实频道链接
+    "📞 联系客服": {"type": "url", "data": "https://t.me/WedlthCode"},
     "🔙 返回主菜单": {"type": "command", "data": "/start"}
 }
 
