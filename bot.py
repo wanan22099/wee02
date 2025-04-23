@@ -6,18 +6,18 @@ from dotenv import load_dotenv
 
 load_dotenv()
 TOKEN = os.getenv("BOT_TOKEN")
-WEB_APP_URL = "https://wealth1254.cc/#/"  # ← 必须替换为真实 URL
 
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     level=logging.INFO
 )
+logger = logging.getLogger(__name__)
 
 async def start(update: Update, context: CallbackContext) -> None:
     try:
         keyboard = [
             [
-                InlineKeyboardButton("🎮 Open Mini App", web_app=WebAppInfo(url=WEB_APP_URL)),
+                InlineKeyboardButton("🎮 Open Mini App", web_app=WebAppInfo(url="https://baidu.com")),
                 InlineKeyboardButton("👥 Join Group", url="https://t.me/+eWZl9--S-cUwZDM0")
             ],
             [
@@ -25,14 +25,16 @@ async def start(update: Update, context: CallbackContext) -> None:
                 InlineKeyboardButton("📞 Contact Support", url="https://t.me/WedlthCode")
             ]
         ]
+        reply_markup = InlineKeyboardMarkup(keyboard)
         await update.message.reply_text(
             "🚀 Welcome! Choose an option:",
-            reply_markup=InlineKeyboardMarkup(keyboard)
+            reply_markup=reply_markup
+        )
     except Exception as e:
-        logging.error(f"Error: {e}")
-        await update.message.reply_text("❌ Failed to load options. Please try later.")
+        logger.error(f"Error in start command: {e}")
+        await update.message.reply_text("❌ An error occurred. Please try again.")
 
-def main():
+def main() -> None:
     app = Application.builder().token(TOKEN).build()
     app.add_handler(CommandHandler("start", start))
     app.run_polling()
