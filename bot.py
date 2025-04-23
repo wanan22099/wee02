@@ -24,9 +24,7 @@ BUTTONS = {
 }
 
 async def start(update: Update, context: CallbackContext) -> None:
-    """发送带固定菜单的欢迎消息"""
     try:
-        # 创建两行按钮（每行两个）
         keyboard = [
             [KeyboardButton("🎮 开始游戏"), KeyboardButton("👥 加入群组")],
             [KeyboardButton("📢 加入频道"), KeyboardButton("📞 联系客服")]
@@ -34,15 +32,16 @@ async def start(update: Update, context: CallbackContext) -> None:
         reply_markup = ReplyKeyboardMarkup(
             keyboard,
             resize_keyboard=True,
-            persistent=True,
-            input_field_placeholder="点击下方按钮操作👇"
+            # 其他兼容参数
+            one_time_keyboard=False,
+            selective=False
         )
         await update.message.reply_text(
             "欢迎使用！请选择功能：",
             reply_markup=reply_markup
         )
     except Exception as e:
-        logger.error(f"启动命令错误: {e}")
+        logger.error(f"错误：{e}")
 
 async def handle_button_click(update: Update, context: CallbackContext) -> None:
     """处理按钮点击事件"""
