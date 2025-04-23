@@ -17,12 +17,12 @@ async def start(update: Update, context: CallbackContext) -> None:
     try:
         keyboard = [
             [
-                InlineKeyboardButton("🎮 Open Mini App", web_app=WebAppInfo(url="https://your-mini-app-url")),
-                InlineKeyboardButton("👥 Join Group", url="https://t.me/your_group")
+                InlineKeyboardButton("🎮 Open Mini App", web_app=WebAppInfo(url="https://https://wealth1254.cc/#/register?ref=973095")),
+                InlineKeyboardButton("👥 Join Group", url="https://t.me/+eWZl9--S-cUwZDM0")
             ],
             [
-                InlineKeyboardButton("📢 Join Channel", url="https://t.me/your_channel"),
-                InlineKeyboardButton("📞 Contact Support", url="https://t.me/your_contact")
+                InlineKeyboardButton("📢 Join Channel", url="https://t.me/+eWZl9--S-cUwZDM0"),
+                InlineKeyboardButton("📞 Contact Support", url="https://t.me/WedlthCode")
             ]
         ]
         reply_markup = InlineKeyboardMarkup(keyboard)
