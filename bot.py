@@ -48,30 +48,28 @@ async def handle_button_click(update: Update, context: CallbackContext) -> None:
     if text in BUTTONS:
         btn = BUTTONS[text]
         if btn["type"] == "web_app":
-            return_keyboard = ReplyKeyboardMarkup(
-                [[KeyboardButton("🔙 返回主菜单")]],
+            # 创建包含返回按钮和Web App按钮的组合键盘
+            keyboard = [
+                [KeyboardButton("打开游戏", web_app=WebAppInfo(url=btn["data"]))],
+                [KeyboardButton("🔙 返回主菜单")]
+            ]
+            reply_markup = ReplyKeyboardMarkup(
+                keyboard,
                 resize_keyboard=True
             )
             await update.message.reply_text(
-                "您正在游戏中...",
-                reply_markup=return_keyboard
+                "您正在游戏中...\n\n使用下方按钮操作：",
+                reply_markup=reply_markup
             )
-            await update.message.reply_text(
-                "点此直接打开游戏：",
-                reply_markup=ReplyKeyboardMarkup.from_button(
-                    KeyboardButton(
-                        "打开游戏",
-                        web_app=WebAppInfo(url=btn["data"])
-                    )
-                )
-            )
+            
         elif btn["type"] == "url":
+            # 对于普通链接，只显示返回按钮
             return_keyboard = ReplyKeyboardMarkup(
                 [[KeyboardButton("🔙 返回主菜单")]],
                 resize_keyboard=True
             )
             await update.message.reply_text(
-                f"点击链接跳转：{btn['data']}",
+                f"点击链接跳转：{btn['data']}\n\n完成后请点击返回按钮",
                 reply_markup=return_keyboard,
                 disable_web_page_preview=True
             )
